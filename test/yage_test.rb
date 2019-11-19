@@ -62,6 +62,15 @@ class YageTest < Minitest::Test
 
   def test_7
     d = Yage::Diff.new(Date.parse('2018/04/10'))
+    res = d.diff(Date.parse('2019/05/09'))
+    assert_equal 1, res.year
+    assert_equal 0, res.month
+    assert_equal 29, res.mday
+    assert_equal 29, res.yday
+  end
+
+  def test_8
+    d = Yage::Diff.new(Date.parse('2018/04/10'))
     res = d.diff(Date.parse('2020/02/29'))
     assert_equal 1,   res.year
     assert_equal 10,  res.month
@@ -69,7 +78,7 @@ class YageTest < Minitest::Test
     assert_equal 325, res.yday
   end
 
-  def test_8
+  def test_9
     d = Yage::Diff.new(Date.parse('2018/03/01'))
     res = d.diff(Date.parse('2019/02/28'))
     assert_equal 0,   res.year
@@ -78,7 +87,7 @@ class YageTest < Minitest::Test
     assert_equal 364, res.yday
   end
 
-  def test_9
+  def test_10
     d = Yage::Diff.new(Date.parse('2018/03/01'))
     res = d.diff(Date.parse('2020/02/29'))
     assert_equal 1,   res.year

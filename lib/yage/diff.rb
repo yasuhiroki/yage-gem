@@ -42,7 +42,9 @@ module Yage
       end
 
       def diff_month(d2)
-        if d2.month == @base.month
+        if @base.month < d2.month
+          (full_month?(d2) ? 0 : -1) + d2.month - @base.month
+        elsif @base.month == d2.month
           full_year?(d2) ? 0 : 11
         else
           (full_year?(d2) ? 0 : 12) + d2.month - @base.month
@@ -50,7 +52,9 @@ module Yage
       end
 
       def diff_mday(d2)
-        d2.mday - @base.mday + (full_month?(d2) ? 0 : end_of_last_month(d2).mday)
+        d2.mday -
+          @base.mday +
+          (full_month?(d2) ? 0 : end_of_last_month(d2).mday)
       end
 
       def diff_yday(d2)
@@ -61,7 +65,8 @@ module Yage
       end
 
       def full_year?(d2)
-        @base.month <= d2.month && @base.mday <= d2.mday
+        @base.month < d2.month ||
+          @base.month == d2.month && @base.mday <= d2.mday
       end
 
       def end_of_year(d2)
