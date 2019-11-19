@@ -1,3 +1,12 @@
 #!/usr/bin/env ruby
 
+$LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 require "yage"
+require "date"
+
+yd = Yage::Diff.new(Date.parse(ARGV[0]))
+res = yd.diff(Date.parse(ARGV[1]))
+
+puts res.to_s
+# puts res.semver
+# puts res.age_yday

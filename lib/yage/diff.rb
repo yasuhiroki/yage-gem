@@ -18,6 +18,14 @@ module Yage
         str.gsub!(/%yday/, yday.to_s)
         sprintf str, *args
       end
+
+      def semver
+        format("v%year.%month.%mday")
+      end
+
+      def age_yday
+        format("v%year.%yday")
+      end
     end
 
     def initialize(date = Date.today)
