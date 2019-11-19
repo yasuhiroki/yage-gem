@@ -2,10 +2,14 @@
 
 require "yage"
 require "date"
+require "optparse"
+
+opts = ARGV.getopts(nil, "semver", "age_yday", "format:")
 
 yd = Yage::Diff.new(Date.parse(ARGV[0]))
-res = yd.diff(Date.parse(ARGV[1]))
+res = yd.diff(ARGV[1].nil? ? Date.today : Date.parse(ARGV[1]))
 
-puts res.to_s
-# puts res.semver
-# puts res.age_yday
+puts res.semver                 if     opts["semver"]
+puts res.age_yday               if     opts["age_yday"]
+puts res.format(opts["format"]) if     opts["format"]
+puts res.to_s                   unless opts.values.any?
