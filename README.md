@@ -33,7 +33,7 @@ $ yage '2018/01/01' '2020/01/01'
 2 years
 ```
 
-Format alike semver
+semver format
 
 ```sh
 $ yage --semver '2018/01/01' '2018/01/02'
@@ -44,6 +44,26 @@ v1.0.1
 
 $ yage --semver '2018/01/01' '2020/02/03'
 v2.1.2
+```
+
+year and yday (day of year) format
+
+```sh
+$ yage --age_yday '2018/01/01' '2018/01/02'
+v0.1
+
+$ yage --age_yday '2018/01/01' '2019/01/01'
+v1.0
+
+$ yage --age_yday '2018/01/01' '2019/02/03'
+v1.33
+```
+
+custom format (support %year, %month, %mday and %yday)
+
+```sh
+$ yage --format "%year years %month month %mday days" '2018/01/01' '2023/04/15'
+5 years 3 month 14 days
 ```
 
 ## Development
