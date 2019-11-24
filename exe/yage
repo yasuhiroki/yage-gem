@@ -4,6 +4,8 @@ require "yage"
 require "date"
 require "optparse"
 
+Version = Yage::VERSION
+
 opts = ARGV.getopts(nil, "semver", "age_yday", "format:")
 
 yd = Yage::Diff.new(Date.parse(ARGV[0]))
