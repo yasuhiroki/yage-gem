@@ -95,4 +95,13 @@ class YageTest < Minitest::Test
     assert_equal 28,  res.mday
     assert_equal 365, res.yday
   end
+
+  def test_11
+    d = Yage::Diff.new(Date.parse('2018/01/02'))
+    res = d.diff(Date.parse('2020/01/01'))
+    assert_equal 1,   res.year
+    assert_equal 11,  res.month
+    assert_equal 30,  res.mday
+    assert_equal 364, res.yday
+  end
 end

@@ -58,7 +58,8 @@ module Yage
       end
 
       def end_of_last_month(d2)
-        Date.new(d2.year, d2.month - 1, -1)
+        last_month = ([12] + (1..11).to_a)[d2.month - 1]
+        Date.new(d2.year, last_month, -1)
       end
   end
 end
