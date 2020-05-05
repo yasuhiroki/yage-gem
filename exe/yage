@@ -1,17 +1,48 @@
 #!/usr/bin/env ruby
 
-require "yage"
-require "date"
-require "optparse"
+require 'yage'
+require 'date'
+require 'optparse'
 
 Version = Yage::VERSION
 
-opts = ARGV.getopts(nil, "semver", "age_yday", "format:")
+opts = {}
+op = OptionParser.new do |opt|
+  opt.banner += ' SRC_DATE [DST_DATE]'
+  opt.on('--semver', 'Print like semver (ex. v2.3.12)') { opts[:semver] = 1 }
+  opt.on('--age_yday', 'Print year and days (ex. v2.102)') { opts[:age_yday] = 1 }
+  opt.on('--format VAL',
+         'Custom format',
+         '  %year: Diff year value',
+         '  %month: Diff month value',
+         '  %mday: Diff month day value',
+         '  %yday: Diff year day value',
+         'ex) --format "He is %year years old" => He is 2 years old') do |v|
+           opts[:format] = v
+         end
+  opt.parse!(ARGV)
+end
 
-yd = Yage::Diff.new(Date.parse(ARGV[0]))
-res = yd.diff(ARGV[1].nil? ? Date.today : Date.parse(ARGV[1]))
+def error_exit(msg)
+  puts msg
+  exit 1
+end
 
-puts res.semver                 if     opts["semver"]
-puts res.age_yday               if     opts["age_yday"]
-puts res.format(opts["format"]) if     opts["format"]
-puts res.to_s                   unless opts.values.any?
+def parse(val)
+  error_exit('nil value') if val.nil?
+  Date.parse(val)
+rescue Date::Error => e
+  error_exit(e.message)
+end
+
+def run(argv)
+  yd = Yage::Diff.new(parse(argv[0]))
+  yd.diff(argv[1].nil? ? Date.today : parse(argv[1]))
+end
+
+res = run(ARGV)
+
+puts res.semver                if     opts[:semver]
+puts res.age_yday              if     opts[:age_yday]
+puts res.format(opts[:format]) if     opts[:format]
+puts res.to_s                  unless opts.values.any?
