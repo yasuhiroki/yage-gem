@@ -23,7 +23,7 @@ module Yage
     end
 
     def age_yday
-      format("v%year.%yday")
+      format("v%d.%03d", year, yday)
     end
   end
 end

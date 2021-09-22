@@ -50,13 +50,13 @@ year and yday (day of year) format
 
 ```sh
 $ yage --age_yday '2018/01/01' '2018/01/02'
-v0.1
+v0.001
 
 $ yage --age_yday '2018/01/01' '2019/01/01'
-v1.0
+v1.000
 
 $ yage --age_yday '2018/01/01' '2019/02/03'
-v1.33
+v1.033
 ```
 
 custom format (support %year, %month, %mday and %yday)
